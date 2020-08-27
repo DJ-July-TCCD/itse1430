@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Delendrick July
+ * ITSE 1430
+ * Lab 1
+ */
+using System;
 
 namespace HelloWorld
 {
@@ -6,7 +11,19 @@ namespace HelloWorld
     {
         static void Main(string[] args)
         {
+            // A single line comment
+            // Another line of comment
             Console.WriteLine("Hello World!");
+
+            int hours = 40;
+            double payRate = 12.80;
+
+            double totalPay = hours * payRate;
+
+            // Another block
+            // 10 + 45;
+            // NO!!! { Console.WriteLine(); }
+
         }
     }
 }

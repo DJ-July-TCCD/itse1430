@@ -25,13 +25,33 @@ namespace MovieLibrary.WinFormsHost
             movie.Name = "Titanic";
 
             toolStripMenuItem5.Click += OnMovieAdd;
+            toolStripMenuItem7.Click += OnMovieDelete;
+
         }
 
         private void OnMovieAdd (object sender, EventArgs e )
         {
             var form = new MovieForm();
 
-            form.ShowDialog();
+            // Show Dialog - model :: =user must interact with child form, cannot access parent
+            // Show - modeless ::= multiple windows open and accessible at all time
+            form.ShowDialog(this); // Blcoks until form is dismissed
+
+            // After Form is gone
+            //TODO - Save Movie
+            MessageBox.Show("Save Successful.");
+        }
+
+        private void OnMovieDelete ( object sender, EventArgs e )
+        {
+            //TODO : Verify Movie Exists
+
+            //DialogResult
+           switch (MessageBox.Show(this, "Are you sure you want to delete?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                case DialogResult.Yes: break;
+                case DialogResult.No: return;
+            };
         }
     }
 }

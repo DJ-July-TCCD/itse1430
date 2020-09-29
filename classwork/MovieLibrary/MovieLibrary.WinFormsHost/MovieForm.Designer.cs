@@ -39,6 +39,8 @@
             this._btnSave = new System.Windows.Forms.Button();
             this._btnCancel = new System.Windows.Forms.Button();
             this._comboRating = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this._txtReleaseYear = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // _txtName
@@ -111,21 +113,25 @@
             // 
             // _btnSave
             // 
-            this._btnSave.Location = new System.Drawing.Point(523, 386);
+            this._btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this._btnSave.Location = new System.Drawing.Point(501, 473);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(94, 29);
             this._btnSave.TabIndex = 9;
             this._btnSave.Text = "Save";
             this._btnSave.UseVisualStyleBackColor = true;
+            this._btnSave.Click += new System.EventHandler(this.OnSave);
             // 
             // _btnCancel
             // 
-            this._btnCancel.Location = new System.Drawing.Point(672, 386);
+            this._btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this._btnCancel.Location = new System.Drawing.Point(633, 473);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(94, 29);
             this._btnCancel.TabIndex = 10;
             this._btnCancel.Text = "Cancel";
             this._btnCancel.UseVisualStyleBackColor = true;
+            this._btnCancel.Click += new System.EventHandler(this.OnCancel);
             // 
             // _comboRating
             // 
@@ -141,11 +147,31 @@
             this._comboRating.Size = new System.Drawing.Size(151, 28);
             this._comboRating.TabIndex = 11;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(33, 482);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(92, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Release Year";
+            // 
+            // _txtReleaseYear
+            // 
+            this._txtReleaseYear.Location = new System.Drawing.Point(145, 479);
+            this._txtReleaseYear.Name = "_txtReleaseYear";
+            this._txtReleaseYear.Size = new System.Drawing.Size(125, 27);
+            this._txtReleaseYear.TabIndex = 13;
+            this._txtReleaseYear.Text = "1900";
+            // 
             // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.CancelButton = this._btnCancel;
+            this.ClientSize = new System.Drawing.Size(800, 531);
+            this.Controls.Add(this._txtReleaseYear);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this._comboRating);
             this.Controls.Add(this._btnCancel);
             this.Controls.Add(this._btnSave);
@@ -181,5 +207,7 @@
         private System.Windows.Forms.Button _btnSave;
         private System.Windows.Forms.Button _btnCancel;
         private System.Windows.Forms.ComboBox _comboRating;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox _txtReleaseYear;
     }
 }

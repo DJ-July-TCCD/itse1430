@@ -24,10 +24,15 @@ namespace MovieLibrary.WinFormsHost
             //Member access operator ::= E . M
             movie.Name = "Titanic";
 
+            // Hooks up Event Handler to an event
+            // Event += method 
+            // Event -= method  : detach
             toolStripMenuItem5.Click += OnMovieAdd;
             toolStripMenuItem7.Click += OnMovieDelete;
 
         }
+
+        // Event - a noftifiaction to interested parties that something has happened
 
         private void OnMovieAdd (object sender, EventArgs e )
         {

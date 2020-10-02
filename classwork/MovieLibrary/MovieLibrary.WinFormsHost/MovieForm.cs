@@ -20,13 +20,26 @@ namespace MovieLibrary.WinFormsHost
             Close();
         }
 
+        //Event Handler - handles an event
+        // This method is handling the button's Click event
+        // Always has a void return type - (object sender, EventArgs e)
         private void OnSave ( object sender, EventArgs e )
         {
+            // I want the button that was clicked
+            // Type Casting 
+            // WRONG = var button = (Button)sneder;  // C-style cast - crashes if wrong
+            // var str = (string)10;
+            // CORRECT: var button = sender as Button;  // as operator - always safe return typed version or null
+            var button = sender as Button;
+            if (button == null)
+                return;
+
+
             var movie = new Movie();
             movie.Name = _txtName.Text;
             movie.Description = _txtDescription.Text;
             movie.Rating = _comboRating.SelectedText;
-            movie.Isclassic = _chkIsclassic.Checked;
+            movie.IsClassic = _chkIsclassic.Checked;
 
             movie.RunLength = ReadAsInt32(_txtRunlength);  //this.ReadAsInt32
             movie.ReleaseYear = ReadAsInt32(_txtReleaseYear);

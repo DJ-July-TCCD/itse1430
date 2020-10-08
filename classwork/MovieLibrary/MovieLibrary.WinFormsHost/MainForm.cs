@@ -27,12 +27,22 @@ namespace MovieLibrary.WinFormsHost
             // Hooks up Event Handler to an event
             // Event += method 
             // Event -= method  : detach
-            toolStripMenuItem5.Click += OnMovieAdd;
-            toolStripMenuItem7.Click += OnMovieDelete;
+            _miMovieAdd.Click += OnMovieAdd;
+            _miMovieEdit.Click += OnMovieEdit;
+            _miMovieDelete.Click += OnMovieDelete;
+            _miHelpAbout.Click += OnHelpAbout;
 
         }
 
+        private void OnHelpAbout ( object sender, EventArgs e )
+        {
+            var about = new AboutBox();
+
+            about.ShowDialog(this);
+        }
+
         // Event - a noftifiaction to interested parties that something has happened
+        private Movie _movie;
 
         private void OnMovieAdd (object sender, EventArgs e )
         {
@@ -40,16 +50,22 @@ namespace MovieLibrary.WinFormsHost
 
             // Show Dialog - model :: =user must interact with child form, cannot access parent
             // Show - modeless ::= multiple windows open and accessible at all time
-            form.ShowDialog(this); // Blcoks until form is dismissed
+            var result = form.ShowDialog(this); // Blocks until form is dismissed
+            if (result == DialogResult.Cancel)
+                return;
 
             // After Form is gone
             //TODO - Save Movie
+            _movie = form.Movie;
+
             MessageBox.Show("Save Successful.");
         }
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             //TODO : Verify Movie Exists
+            if (_movie == null)
+                return;
 
             //DialogResult
            switch (MessageBox.Show(this, "Are you sure you want to delete?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
@@ -57,6 +73,31 @@ namespace MovieLibrary.WinFormsHost
                 case DialogResult.Yes: break;
                 case DialogResult.No: return;
             };
+
+            //TODO: Delete Movie
+            _movie = null;
+        }
+        private void OnMovieEdit ( object sender, EventArgs e )
+        {
+            if (_movie == null)
+                return;
+            //Object Creation
+            // 1. Allocate memory for instance, zero initialized
+            // 2. Initialize fields
+            // 3. Constructor - method on class to complete the initialization
+            // 4. Return new insitance
+
+            var form = new MovieForm(_movie, "Edit Movie");
+            form.Movie = _movie;
+
+            var result = form.ShowDialog(this); // Blocks until form is dismissed
+            if (result == DialogResult.Cancel)
+                return;
+
+            //TODO - Update Movie
+            _movie = form.Movie;
+
+            MessageBox.Show("Save Successful.");
         }
     }
 }

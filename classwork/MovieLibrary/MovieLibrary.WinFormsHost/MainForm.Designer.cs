@@ -38,7 +38,7 @@
             this._miMovieDelete = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this._lstMovies = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,22 +119,22 @@
             this._miHelpAbout.Size = new System.Drawing.Size(157, 26);
             this._miHelpAbout.Text = "&About";
             // 
-            // listBox1
+            // _lstMovies
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(0, 28);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(648, 260);
-            this.listBox1.TabIndex = 1;
+            this._lstMovies.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._lstMovies.FormattingEnabled = true;
+            this._lstMovies.ItemHeight = 20;
+            this._lstMovies.Location = new System.Drawing.Point(0, 28);
+            this._lstMovies.Name = "_lstMovies";
+            this._lstMovies.Size = new System.Drawing.Size(648, 260);
+            this._lstMovies.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 288);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this._lstMovies);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -158,7 +158,7 @@
         private System.Windows.Forms.ToolStripMenuItem _miMovieDelete;
         private System.Windows.Forms.ToolStripMenuItem _miHelp;
         private System.Windows.Forms.ToolStripMenuItem _miHelpAbout;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox _lstMovies;
     }
 }
 

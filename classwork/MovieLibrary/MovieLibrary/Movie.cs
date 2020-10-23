@@ -71,7 +71,7 @@ namespace MovieLibrary
         // Mixed accessibility - use of different access on either getter or setter
         // 1. Only 1 method can have accesss modifier
         // 2. Always more restricitive
-        public int Id { get; private set; } // Reads from teh public class, writes to the private
+        public int Id { get; set; } // Reads from the public class, writes to the private
 
 
         // Properties - methods that have field-like syntax

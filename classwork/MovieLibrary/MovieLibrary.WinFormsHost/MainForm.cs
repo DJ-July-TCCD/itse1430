@@ -34,6 +34,13 @@ namespace MovieLibrary.WinFormsHost
 
         }
 
+        protected override void OnLoad ( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            RefreshUI();
+        }
+
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var about = new AboutBox();
@@ -46,7 +53,7 @@ namespace MovieLibrary.WinFormsHost
         // Array - T[] Array of movies
         //  Instantiate - ::=  new T[E1]
         //  Index : 0 to size -1 
-        private MovieDatabase _movies = new MovieDatabase();
+        private IMovieDatabase _movies = new MovieDatabase();
         //private Movie[] _movies = new Movie[100]; // 0 - 99
        // private Movie[] _emptyMovies = new Movie[0];  // empty array are equivelant so use empty arrays instead of null
 
@@ -128,8 +135,9 @@ namespace MovieLibrary.WinFormsHost
         {
             //_lstMovies.DisplayMember = nameof(Movie.Name);
 
-            _lstMovies.DataSource = null;
-            _lstMovies.DataSource = _movies.GetAll();
+            _lstMovies.DataSource = _movies.GetAll().ToArray();
+            //_lstMovies.DataSource = null;
+            //_lstMovies.DataSource = _movies.GetAll();
         }
 
         private void OnMovieAdd (object sender, EventArgs e )

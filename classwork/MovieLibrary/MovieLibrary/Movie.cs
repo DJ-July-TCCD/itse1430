@@ -4,6 +4,8 @@
 *Classwork
  */
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 //String Builder, Reguler Expression, Encoding
 //using System.Text;
@@ -16,7 +18,7 @@ namespace MovieLibrary
     //Singular unless representing a collection
 
 
-    public class Movie
+    public class Movie : IValidatableObject
     {
 
         //Data - data to store
@@ -46,9 +48,9 @@ namespace MovieLibrary
 
         private string _description = "";
         private string _rating = "";
-        
-        
-        
+
+
+
 
         // Not a field because:
         // 1. Can not write 
@@ -83,8 +85,7 @@ namespace MovieLibrary
         public string Name
         {
             // getter - Always starts with get and has {}, T get_Name ()
-            get
-            {
+            get {
                 // Null Coalesce - scanning a series of expressions looking for non-NULL
                 // E1 ?? E2
                 // if E1 is not null then return E1
@@ -103,6 +104,28 @@ namespace MovieLibrary
                 _name = value;
             }
         }
+
+
+
+
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
+        {
+            // When iterator syntax is being used, all return types must be yeild return
+            //Name is required
+            if (String.IsNullOrEmpty(Name))
+                yield return new ValidationResult("Name is required", new[] { nameof(Name) });
+
+
+            //Run length is required
+            if (RunLength < 0)
+                yield return new ValidationResult("Run Length must be greater than or equal to 0", new[] { nameof(RunLength) });
+
+            //Release Year must be >= 1900
+            if (ReleaseYear < 1900)
+                yield return new ValidationResult("Release Year must be at least 1900", new[] { nameof(ReleaseYear) });
+
+        }
+
 
         /// <summary> Gets or sets the movie description. </summary>
         public string Description
@@ -147,22 +170,8 @@ namespace MovieLibrary
 
         /// <summary> Validates the movie instance. </summary>
         /// <returns> Error message, if any. </returns>
-        public string Validate ()
-        {
-            //Name is required
-            if (String.IsNullOrEmpty(Name))
-                return "Name is Required";
+        //public string Validate ()
 
-            //Run length is required
-            if (RunLength < 0)
-                return "Run Length must be greater than or equal to 0";
-
-            //Release Year must be >= 1900
-            if (ReleaseYear < 1900)
-                return "Release Year must be at least 1900";
-
-            return null;
-        }
 
         public override string ToString ()
         {

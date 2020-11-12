@@ -10,10 +10,10 @@ namespace MovieLibrary
     //   Cannot instantiate an interface
     public interface IMovieDatabase
     {
-        Movie Add ( Movie movie, out string error );
+        Movie Add ( Movie movie );
         void Delete ( int id );
         Movie Get ( int id );
         IEnumerable<Movie> GetAll ();
-        string Update ( int id, Movie movie );
+        void Update ( int id, Movie movie );
     }
 }

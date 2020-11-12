@@ -149,10 +149,10 @@ namespace CharacterCreator.WinForms
             var value = ReadAsInt32(control);
             if (value < 1)
             {
-                _errors.SetError(control, "Agility is your character's speed. It must be greater  0");
+                _errors.SetError(control, "Agility is your character's speed. It must be greater 0");
             } else if (value > 100)
             {
-                _errors.SetError(control, "Agility is your character's speed. It cannot surpass  100");
+                _errors.SetError(control, "Agility is your character's speed. It cannot surpass 100");
             } else
             {
 

@@ -57,7 +57,7 @@ namespace MovieLibrary.WinFormsHost
             {
                 _txtName.Text = Movie.Name;
                 _txtDescription.Text = Movie.Description;
-                _comboRating.SelectedText = Movie.Rating;
+                _comboRating.Text = Movie.Rating;
                 _chkIsclassic.Checked = Movie.IsClassic;
                 _txtRunlength.Text = Movie.RunLength.ToString();
                 _txtReleaseYear.Text = Movie.ReleaseYear.ToString();
@@ -105,18 +105,18 @@ namespace MovieLibrary.WinFormsHost
             //Validate
             //var validationResults = new ObjectValidator().TryValidateFullObject(movie);
             var validationResults = ObjectValidator.TryValidateFullObject(movie);
-
             if (validationResults.Count() > 0)
             {
                 // TODO: Fix this later using String.join
-                var builder = new System.Text.StringBuilder();
-                foreach (var results in validationResults)
-                {
-                    builder.AppendLine(results.ErrorMessage);
-                }
+                //var builder = new System.Text.StringBuilder();
+                //foreach (var results in validationResults)
+                //{
+                //    builder.AppendLine(results.ErrorMessage);
+                //}
+                var error = String.Join(Environment.NewLine, validationResults.Select(x => x.ErrorMessage));
 
                 // Show the error message
-                MessageBox.Show(this, builder.ToString(), "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this, error,  "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
                 return;
             }

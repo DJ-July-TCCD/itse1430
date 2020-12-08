@@ -32,8 +32,8 @@ namespace MovieLibrary
             // Throw an expression using throw exception
             //      throw-expression ::- throw E
             //              E must be Exception
-            if (movie == null)
-                throw new ArgumentNullException(nameof(movie));            // Argument is null and shouldn't be, pretty much all reference types
+            //if (movie == null)
+            //    throw new ArgumentNullException(nameof(movie));            // Argument is null and shouldn't be, pretty much all reference types
 
             // Movie is valid
             //new ObjectValidator().ValidateFullObject(movie);
@@ -68,16 +68,19 @@ namespace MovieLibrary
         protected abstract Movie AddCore ( Movie movie );
 
         protected abstract void DeleteCore ( int id );
+        protected virtual Movie GetByName ( string name ) => GetAll().FirstOrDefault(x => String.Compare(x.Name, name, true) == 0);
+      
+        //protected virtual Movie GetByName ( string name )
+        //{
+        //    return GetAll().FirstOrDefault(x => String.Compare(x.Name, name, true) == 0);
+        //    //foreach (var movie in GetAll())
+        //    //{
+        //    //    if (String.Compare(movie.Name, name, true) == 0)
+        //    //        return movie;
+        //    //}
 
-        protected virtual Movie GetByName ( string name )
-        {
-            foreach (var movie in GetAll())
-            {
-                if (String.Compare(movie.Name, name, true) == 0)
-                    return movie;
-            }
-            return null;
-        }
+        //    //return null;
+        //}
 
         protected abstract IEnumerable<Movie> GetAllCore ();
 
@@ -177,6 +180,27 @@ namespace MovieLibrary
             }
         }
 
+    // Dataset vs. Datareader ( Beffured vs streamed)
+    // 
+    // A = Advantage, D = Disadvantage
+    //
+    // Dataset:
+    // A: Disconnected from database
+    // A: Discoverable - column names, types, nullable and relationships
+    // A: Pre-defined business objects
+    // A: Modifiable
+    // D: Very high memory overhead ( requires 2x as much storage for column data) (< 1k)
+    //
+    // Data Readers:
+    // A: No memory Overhead
+    // A: Fast
+    // A: Store in your business objects
+    // D: Must know the data
+    // D: Cannot modify data : Read - Only
+    // 
+    // Use a Datareader unless you have need for a feature not available in a data reader
+    // USe a Dataset when you need very small sets of fixed data where no business logic is needed
+
 
 
 
@@ -184,7 +208,62 @@ namespace MovieLibrary
         //Non-generic
         //   ArrayList - list of objects (lose strong typing known to C#)
         // Generic Types
-        //   List<T> : where T equals any type 
+        //   List<T> : where T equals any type
+        
+
+
+
+
+
+    // LINQ - Language Integrated Natural Query
+    // Deffered Excecution -> Next Element is not retrieved until needed 
+    //   Directory.GetFiles() -> string[]  (not)
+    //   Directory.EnumerateFiles() -> IEnumerable<string>  (deffered)
+    //
+    // Common extension methods for INumerable<T>
+    //  Convesion
+    //   ToArray() -> T[]
+    //   ToList() -> List<T>
+    //  Casting
+    //   OfType<T>() -> Returns IEnumerable<T> of any items that are compatible with T
+    //   Cast<T> -> Return IENumerable<T> but crashes if anything doesn't match type
+    //  Get Item (not deferred) ->
+    // First/ FirstOrDefault -> Gets first item (if any)
+    // Last/ LastOrDefault -> Gets Last item (if any)
+    // Single/ SingleOrDefault -> Gets only items (if any)
+    //  Query -> IEnumerable<T> (replace foreach)
+    //   Where(condition) -> IEnumerable<T>
+    //   OrderBy(member) -> IEnumerable <T> orderd by member
+    //   Select<T> -> grouped IEnumerable<T>
+    //   Join() -> IEnumerable<?>
+    //
+    //
+    //
+    // Delegates (function object, functor) - the type that represents any method that returns a bool
+    //      Treat a function as data
+    //      Action -> void fx ()
+    //      Action<T1, T2> -> void fx ( t1, T2 )
+    //      Func<T, R> -> R fx(T)
+    //      Func<T1, T2, R> -> R fx (T1, T2 )
+
+    // Lambda expressions / anonymous methods
+    //  Method that has no name ( can't be called due to being nameless)
+    //  Can only be called with a delegate
+    //  parameters => expression
+
+
+    // Expression bodies(limited to methods, constructors, operators, properties)
+    //    method => E;
+    //    T property => {get => E; set => S;}
+    //    T property => E;
+    //      Replaces a method body that has a single return statement (compiler rewrites to regular method)
+
+    // LINQ syntax
+    //      from x in IEnumerable<T>
+    //      [where lambda expression]
+    //      [orderby member, member]
+    //      select E
+
     }
 
 

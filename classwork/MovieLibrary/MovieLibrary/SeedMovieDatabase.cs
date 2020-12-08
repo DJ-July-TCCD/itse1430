@@ -8,7 +8,7 @@ namespace MovieLibrary
     {
         // Make static beacuse it does not reference ant inastance data
         // nor does it reall need to be created
-        public static void Seed ( IMovieDatabase database )
+        public static void Seed ( this IMovieDatabase source )
         {
             {
                 // Not needed here
@@ -38,7 +38,7 @@ namespace MovieLibrary
 
                 // TODO: Fix error Handling
                 foreach (var item in items)
-                    database.Add(item);
+                    source.Add(item);
 
 
                 // Seed Database

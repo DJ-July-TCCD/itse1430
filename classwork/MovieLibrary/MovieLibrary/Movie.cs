@@ -62,13 +62,14 @@ namespace MovieLibrary
         // 2. Complex syntax
         // 3. Get/Set in the title - shouldn't be a method; should be a field
         //public int GetAge () { }
-        public int Age
-        {
-            //Calculated property
-            //Read-only property
-            get { return DateTime.Now.Year - ReleaseYear; }
-            //set { }
-        }
+        //public int Age
+        //{
+        //    get => DateTime.Now.Year - ReleaseYear;
+        //    //set { }
+        //}
+
+        // Calculated Property with expression body simplied to one line
+        public int Age => DateTime.Now.Year - ReleaseYear;
 
         // Mixed accessibility - use of different access on either getter or setter
         // 1. Only 1 method can have accesss modifier
@@ -84,26 +85,32 @@ namespace MovieLibrary
         // *Properties returning arrays or strings shoudl not return null
         public string Name
         {
-            // getter - Always starts with get and has {}, T get_Name ()
-            get {
-                // Null Coalesce - scanning a series of expressions looking for non-NULL
-                // E1 ?? E2
-                // if E1 is not null then return E1
-                // else return E2
 
-                //if (_name == null)
-                //    return "";
-                // return _name;
-
-                return _name ?? "";
-            }
-
-
-            // setter - Always starts with set and has {}, void set_Name ( T value )
-            set {
-                _name = value;
-            }
+            get => _name ?? "";
+            set => _name = value;
         }
+        //public string Name
+        //{
+        //    // getter - Always starts with get and has {}, T get_Name ()
+        //    get {
+        //        // Null Coalesce - scanning a series of expressions looking for non-NULL
+        //        // E1 ?? E2
+        //        // if E1 is not null then return E1
+        //        // else return E2
+
+        //        //if (_name == null)
+        //        //    return "";
+        //        // return _name;
+
+        //        return _name ?? "";
+        //    }
+
+
+        //    // setter - Always starts with set and has {}, void set_Name ( T value )
+        //    set {
+        //        _name = value;
+        //    }
+        //}
 
 
 
@@ -130,14 +137,14 @@ namespace MovieLibrary
         /// <summary> Gets or sets the movie description. </summary>
         public string Description
         {
-            get { return _description ?? ""; }
-            set { _description = value; }
+            get => _description ?? "";
+            set => _description = value;
         }
 
         public string Rating
         {
-            get { return _rating ?? ""; }
-            set { _rating = value; }
+            get => _rating ?? "";
+            set => _rating = value;
         }
 
         /// <summary> Gets or sets the run length in minutes.</summary>

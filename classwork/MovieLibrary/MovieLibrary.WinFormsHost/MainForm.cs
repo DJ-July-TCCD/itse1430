@@ -35,7 +35,6 @@ namespace MovieLibrary.WinFormsHost
             _miHelpAbout.Click += OnHelpAbout;
 
         }
-
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
@@ -46,7 +45,7 @@ namespace MovieLibrary.WinFormsHost
                 if (MessageBox.Show(this, "No movies found. Did you want to add some example movies?", "Database Empty", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     //var seed = new SeedMovieDatabase();
-                    SeedMovieDatabase.Seed(_movies);
+                    _movies.Seed();
 
                     RefreshUI();
 
@@ -67,7 +66,12 @@ namespace MovieLibrary.WinFormsHost
         // Array - T[] Array of movies
         //  Instantiate - ::=  new T[E1]
         //  Index : 0 to size -1 
-        private IMovieDatabase _movies = new IO.FileMovieDatabase("movies.csv");
+        private IMovieDatabase _movies = new Sql.SqlMovieDatabase(_connectionString);
+
+        // Normally store in a Config File, Not directly in code
+        private const string _connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=MovieDB;Integrated Security=True;";
+
+        //private IMovieDatabase _movies = new IO.FileMovieDatabase("movies.csv");
         //private Movie[] _movies = new Movie[100]; // 0 - 99
         // private Movie[] _emptyMovies = new Movie[0];  // empty array are equivelant so use empty arrays instead of null
 
@@ -151,8 +155,22 @@ namespace MovieLibrary.WinFormsHost
 
         private int RefreshUI ()
         {
-            var items = _movies.GetAll().ToArray();
-            _lstMovies.DataSource = _movies.GetAll().ToArray();
+            //.ToArray -> Extension methods
+            //  Allows us to call a method like an instnace method on a type thaty does not actually implement i t
+            // Adding functinalty to a type
+            //  1. Open type and ad new instance method - only works if you own the type
+            //  2. Inherit from type - if abse typw allows inheritance and you are OK using the derived type
+            //  3. Extension method - works with any type
+            System.Collections.Generic.IEnumerable<Movie> movies = _movies.GetAll();
+
+            // Calling extension Method
+            //  1. Just like an instance method
+            var items = _movies.GetAll()
+                               .OrderBy(x => x.Name).ThenBy(x => x.ReleaseYear)
+                               .Select(x => x) // Transform
+                               .ToArray();
+
+            _lstMovies.DataSource = items;
             //_lstMovies.DataSource = null;
             //_lstMovies.DataSource = _movies.GetAll();
             //_lstMovies.DisplayMember = nameof(Movie.Name);
